@@ -1,4 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
 interface IGenerateTextBody {
@@ -10,8 +11,15 @@ interface IGenerateTextResponse {
   prompt: string;
 }
 
+@ApiTags('Text Handlers')
 @Controller()
 export class AppController {
+  @ApiProperty()
+  message: string;
+
+  @ApiProperty()
+  prompt: string;
+
   constructor(private readonly appService: AppService) {}
 
   @Post('generate-text')

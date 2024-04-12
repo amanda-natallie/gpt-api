@@ -1,12 +1,11 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import Configuration, { ClientOptions, OpenAI } from 'openai';
 import { from, lastValueFrom } from 'rxjs';
 
 @Injectable()
-export class AppService {
+export class GenerateTextService {
   private openai: OpenAI;
-  constructor(private httpService: HttpService) {
+  constructor() {
     const configuration: Pick<ClientOptions, 'apiKey'> = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -28,7 +27,7 @@ export class AppService {
       );
       return {
         message: response.choices[0].text,
-        prompt,
+        prompt: prompt,
       };
     } catch (error) {
       console.log(error);
